@@ -9,7 +9,7 @@ fi
 IP="$1"
 
 # Scan les ports ouverts
-sudo nmap -sSV -Pn -vvv -p- --open --reason -oA ${IP}_port_1000_SYN ${IP} >/dev/null 
+sudo nmap -sSV -Pn -vvv --top-ports 1000 --open --reason -oA ${IP}_port_1000_SYN ${IP} >/dev/null 
 
 echo "Scan terminé :"
 cat ${IP}_port_1000_SYN.nmap | grep -e "open" | grep -e "tcp" 
@@ -63,3 +63,5 @@ for PORT in $PORTS_WEB; do
 		fi
 	fi
 done
+
+# Boucle sur les ports SMB et FTP et télécharge récursivement les contenus
